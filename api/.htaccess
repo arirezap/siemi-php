@@ -1,0 +1,12 @@
+# Semua permintaan ke /api/* ditangani index.php. Folder lib/ routes/ dan config tidak boleh diakses langsung.
+RewriteEngine On
+# Teruskan header Authorization ke PHP (dibutuhkan beberapa hosting CGI/FastCGI)
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule ^(lib|routes)/ - [F,L]
+RewriteRule ^config(\.sample)?\.php$ - [F,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>

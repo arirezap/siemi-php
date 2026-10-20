@@ -1,0 +1,12 @@
+# Konfigurasi sensitif (berisi kredensial database - JANGAN DI-COMMIT)
+api/config.php
+
+# Folder unggahan pengguna (hanya simpan .htaccess)
+uploads/*
+!uploads/.htaccess
+!uploads/.gitkeep
+
+# File sistem & cache
+.DS_Store
+Thumbs.db
+*.log

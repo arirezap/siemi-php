@@ -1,0 +1,9 @@
+# Folder unggahan: jangan menjalankan skrip, hanya menyajikan berkas.
+<IfModule mod_autoindex.c>
+  IndexIgnore *
+</IfModule>
+<FilesMatch "\.(php|phtml|phar|pl|cgi|sh|html?)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>

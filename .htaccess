@@ -1,0 +1,27 @@
+# Akar situs (public_html): aplikasi React (SPA) + API PHP di /api
+<IfModule mod_autoindex.c>
+  IndexIgnore *
+</IfModule>
+RewriteEngine On
+
+# Paksa HTTPS (hapus 3 baris ini bila belum memasang SSL)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# API ditangani api/.htaccess -> api/index.php
+RewriteRule ^api(/|$) - [L]
+# Berkas unggahan dilayani apa adanya
+RewriteRule ^uploads/ - [L]
+
+# Berkas statis yang ada (assets/, favicon, dsb.) dilayani langsung; sisanya -> index.html (rute React)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^ index.html [L]
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
