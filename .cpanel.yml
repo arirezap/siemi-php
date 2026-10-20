@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/spm/public_html/
+    - /bin/rsync -av --exclude='.git*' --exclude='api/config.php' --exclude='uploads/*' ./ $DEPLOYPATH
